@@ -88,3 +88,12 @@ https://pan.baidu.com/s/13crsXwwhkI5A3MlHtPihuA  password: xhyi
     ├── ITS_train_cdnet_test.pk
     └── ITS_train_cdnet_test.pk.best
 ```
+
+### Dataset
+refer to: https://sites.google.com/view/reside-dehaze-datasets/reside-v0
+```
+ITS (Indoor Training Set)：
+（Dropbox）： http://t.cn/RHjBQIV 
+（Baidu Yun）：https://pan.baidu.com/s/16rm4zUF8uVRs3Ux5T9CMMA    Passward:  tqyh
+```
+put on `./ITS_v2`, and run `python create_dataset.py` to create h5 files.
