@@ -29,3 +29,62 @@ https://github.com/Booooooooooo/AECRNet-MindSpore by @wyb
 **Pretrained models:**
 
 https://pan.baidu.com/s/13crsXwwhkI5A3MlHtPihuA  password: xhyi
+
+
+## 22-09-25 Update
+
+### Directory Tree
+```
+.
+├── create_dataset.py
+├── datasets
+│   ├── ITS_test
+│   └── ITS_train
+├── data_utils
+│   ├── DH.py
+│   ├── ITS_h5.py
+│   ├── NH.py
+│   └── __pycache__
+├── img
+│   ├── aecrnet.png
+│   ├── example.png
+│   ├── performance.png
+│   └── trade_off.png
+├── ITS_v2
+│   ├── clear
+│   ├── clear.zip
+│   ├── hazy
+│   ├── hazy.zip
+│   ├── trans
+│   └── trans.zip
+├── logs
+│   ├── ITS_train_cdnet_test
+│   ├── its_train_ffa_test
+│   └── ITS_train_ffa_test
+├── logs_train
+│   ├── args_ITS_train_cdnet_test.txt
+│   ├── args_its_train_ffa_test.txt
+│   ├── args_ITS_train_ffa_test.txt
+│   └── ITS_train_cdnet_test.txt
+├── metrics.py
+├── models
+│   ├── AECRNet.py
+│   ├── CR.py
+│   ├── DCNv2
+│   ├── DCNv2.zip
+│   ├── deconv.py
+│   └── __pycache__
+├── numpy_files
+├── option.py
+├── README.md
+├── requirements
+├── samples
+│   ├── ITS_train_cdnet_test
+│   ├── its_train_ffa_test
+│   └── ITS_train_ffa_test
+├── test.py
+├── train_aecrnet.py
+└── trained_models
+    ├── ITS_train_cdnet_test.pk
+    └── ITS_train_cdnet_test.pk.best
+```
