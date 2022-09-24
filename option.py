@@ -14,6 +14,13 @@ parser.add_argument('--trainset', type=str,default='ITS_train')
 parser.add_argument('--testset', type=str,default='ITS_test')
 parser.add_argument('--net', type=str,default='cdnet')
 
+# add test model
+parser.add_argument('--model', type=str,default='train', help='train or test, default is train')
+# add the trained model of currently network
+parser.add_argument('--aecr_trained', type=str,default='trained_models/ITS_train_cdnet_test.pk.best', help='trained model path')
+
+
+
 parser.add_argument('--bs', type=int,default=12,help='batch size')
 parser.add_argument('--crop', action='store_true')
 parser.add_argument('--crop_size', type=int,default=240,help='Takes effect when using --crop ')

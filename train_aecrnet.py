@@ -119,7 +119,7 @@ def train(net, loader_train, loader_test, optim, criterion):
 
 			save_model_dir = opt.model_dir
 			with torch.no_grad():
-				ssim_eval, psnr_eval = test(net, loader_test)
+				ssim_eval, psnr_eval = test_epoch(net, loader_test, step)
 
 			log = f'\nstep :{step} | epoch: {epoch} | ssim:{ssim_eval:.4f}| psnr:{psnr_eval:.4f}'
 
@@ -152,6 +152,38 @@ def train(net, loader_train, loader_test, optim, criterion):
 	np.save(f'./numpy_files/{model_name}_{steps}_losses.npy', losses)
 	np.save(f'./numpy_files/{model_name}_{steps}_ssims.npy', ssims)
 	np.save(f'./numpy_files/{model_name}_{steps}_psnrs.npy', psnrs)
+
+def test_epoch(net,loader_test, epoch_num):
+	"""
+	Give test add epoch number, outputing the images of contrastive loss
+	"""
+	save_dir = f'./test_results/'
+	
+	net.eval()
+	torch.cuda.empty_cache()
+	ssims = []
+	psnrs = []
+
+	for i, (inputs, targets) in enumerate(loader_test):
+		inputs = inputs.to(opt.device);targets = targets.to(opt.device)
+		with torch.no_grad():
+			pred = net(inputs)
+		ssim1 = ssim(pred, targets).item()
+		psnr1 = psnr(pred, targets)
+		# inputs to images file
+		if epoch_num == 0:
+			inputs = inputs.cpu().numpy().squeeze(0).transpose(1,2,0)
+			inputs = (inputs*255).astype(np.uint8)
+			cv2.imwrite(save_dir+f'{i}_input.png', inputs)
+		# pred to image file
+		pred = pred.cpu().numpy().squeeze(0).transpose(1, 2, 0)
+		pred = (pred * 255).astype(np.uint8)
+		cv2.imwrite(save_dir+f'{i}_{epoch_num}_pred.png', pred)
+		
+		ssims.append(ssim1)
+		psnrs.append(psnr1)
+
+	return np.mean(ssims), np.mean(psnrs)
 
 def test(net,loader_test):
 	net.eval()

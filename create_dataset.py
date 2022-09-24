@@ -31,8 +31,8 @@ def split_h5data_train_test(h5_dir, dataset_path) -> None:
     files = glob.glob(h5_dir + '/*.h5')
     files = list(files)
     np.random.shuffle(files)
-    train_files = files[:int(len(files)*0.8)]
-    test_files = files[int(len(files)*0.8):]
+    train_files = files[:int(len(files)*0.99)]
+    test_files = files[int(len(files)*0.99):]
 
     # move dataset_path
     for i, h5_file_name in enumerate(train_files):
