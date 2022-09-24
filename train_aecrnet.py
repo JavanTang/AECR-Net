@@ -1,3 +1,4 @@
+from random import seed
 import torch, os, sys, torchvision, argparse
 import time, math
 import numpy as np
@@ -14,8 +15,8 @@ from models.AECRNet import *
 from models.CR import *
 from data_utils.ITS_h5 import ITS_train_loader
 from data_utils.ITS_h5 import ITS_test_loader
-from data_utils.NH import *
-from data_utils.DH import *
+# from data_utils.NH import *
+# from data_utils.DH import *
 
 import json
 
@@ -29,10 +30,10 @@ models_={
 loaders_={
 	'ITS_train': ITS_train_loader,
 	'ITS_test': ITS_test_loader,
-	'NH_train': NH_train_loader,
-	'NH_test': NH_test_loader,
-	'DH_train': DH_train_loader,
-	'DH_test': DH_test_loader,
+	# 'NH_train': NH_train_loader,
+	# 'NH_test': NH_test_loader,
+	# 'DH_train': DH_train_loader,
+	# 'DH_test': DH_test_loader,
 }
 
 start_time = time.time()
@@ -87,7 +88,8 @@ def train(net, loader_train, loader_test, optim, criterion):
 		x = x.to(opt.device)
 		y = y.to(opt.device)
 
-		out, _, m4, m5 = net(x)
+		# out, _, m4, m5 = net(x)
+		out = net(x)
 
 		loss_vgg7, all_ap, all_an, loss_rec = 0, 0, 0, 0
 		if opt.w_loss_l1 > 0:
@@ -117,7 +119,7 @@ def train(net, loader_train, loader_test, optim, criterion):
 
 			save_model_dir = opt.model_dir
 			with torch.no_grad():
-				ssim_eval, psnr_eval = test(net, loader_test, max_psnr, max_ssim, step)
+				ssim_eval, psnr_eval = test(net, loader_test)
 
 			log = f'\nstep :{step} | epoch: {epoch} | ssim:{ssim_eval:.4f}| psnr:{psnr_eval:.4f}'
 
@@ -160,7 +162,7 @@ def test(net,loader_test):
 	for i, (inputs, targets) in enumerate(loader_test):
 		inputs = inputs.to(opt.device);targets = targets.to(opt.device)
 		with torch.no_grad():
-			pred, _, _, _ = net(inputs)
+			pred = net(inputs)
 
 		ssim1 = ssim(pred, targets).item()
 		psnr1 = psnr(pred, targets)
